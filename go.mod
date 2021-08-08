@@ -1,4 +1,4 @@
-module github.com/osmontero/utils
+module github.com/osmontero/tools
 
 go 1.16
 
