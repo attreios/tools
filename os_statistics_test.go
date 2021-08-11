@@ -10,3 +10,8 @@ func TestMemoryStats(t *testing.T) {
 	t.Logf("Used: %v",m.Used)
 	t.Logf("Percent: %v",m.PercentUsed)
 }
+
+func TestCPUStats(t *testing.T){
+	c:=CPUStats()
+	t.Logf("Cores: %v", c.Cores)
+}
