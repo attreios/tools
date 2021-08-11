@@ -1,8 +1,6 @@
 package tools
 
 import (
-	"fmt"
-	"os"
 	"runtime"
 
 	"golang.org/x/sys/unix"
@@ -34,13 +32,11 @@ func CPUStats() CPU {
 	}
 }
 
-func DiskStats() uint64{
+func DiskStats(path string) uint64 {
 	var stat unix.Statfs_t
 
-	wd, err := os.Getwd()
-
-	unix.Statfs(wd, &stat)
+	unix.Statfs(path, &stat)
 
 	// Available blocks * size per block = available space in bytes
-	return stat.Bavail * uint64(stat.Bsize)
+	return uint64(stat.Bavail * uint64(stat.Bsize) / 1024 / 1024)
 }
