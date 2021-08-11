@@ -9,7 +9,7 @@ import (
 type Memory struct {
 	Total       uint64
 	Used        uint64
-	PercentUsed int8
+	PercentUsed uint8
 }
 
 type CPU struct {
