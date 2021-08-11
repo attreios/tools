@@ -15,3 +15,8 @@ func TestCPUStats(t *testing.T){
 	c:=CPUStats()
 	t.Logf("Cores: %v", c.Cores)
 }
+
+func TestDiskSpace(t *testing.T){
+	s:=DiskSpace()
+	t.Logf("space: %s", s)
+}

@@ -1,7 +1,11 @@
 package tools
 
 import (
+	"fmt"
+	"os"
 	"runtime"
+
+	"golang.org/x/sys/unix"
 )
 
 type Memory struct {
@@ -28,4 +32,15 @@ func CPUStats() CPU {
 	return CPU{
 		Cores: uint8(runtime.NumCPU()),
 	}
+}
+
+func DiskStats() uint64{
+	var stat unix.Statfs_t
+
+	wd, err := os.Getwd()
+
+	unix.Statfs(wd, &stat)
+
+	// Available blocks * size per block = available space in bytes
+	return stat.Bavail * uint64(stat.Bsize)
 }
