@@ -22,7 +22,7 @@ func MemoryStats() Memory {
 	return Memory{
 		Total:       uint64(m.Sys / 1024 / 1024),
 		Used:        uint64(m.HeapAlloc / 1024 / 1024),
-		PercentUsed: int8(m.HeapAlloc / m.Sys * 100),
+		PercentUsed: uint8(m.HeapAlloc / m.Sys * 100),
 	}
 }
 
