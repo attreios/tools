@@ -8,7 +8,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/osmontero/holmes"
+	"github.com/attreios/holmes"
 )
 
 func Encrypt(key string, plain string) string {
