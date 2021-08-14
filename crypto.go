@@ -7,43 +7,39 @@ import (
 	"encoding/hex"
 	"fmt"
 	"os"
-
-	"github.com/attreios/holmes"
 )
 
-func Encrypt(key string, plain string) string {
-	h := holmes.New(os.Getenv("LOG_MODE"), "utils.Encrypt")
-
+func Encrypt(key string, plain string) (string, error) {
 	plainBytes := []byte(plain)
 
 	block, blockErr := aes.NewCipher([]byte(key))
 	if blockErr != nil {
-		h.FatalError("%v", blockErr)
+		return "", blockErr
 	}
 
 	aesGCM, gcmErr := cipher.NewGCM(block)
 	if gcmErr != nil {
-		h.FatalError("%v", gcmErr)
+		return "", gcmErr
 	}
 
 	nonce := make([]byte, aesGCM.NonceSize())
 
 	encrypted := aesGCM.Seal(nonce, nonce, plainBytes, nil)
 
-	return fmt.Sprintf("%x", encrypted)
+	return fmt.Sprintf("%x", encrypted), nil
 }
 
-func GenerateCryptoKey(size int) string {
+func GenerateCryptoKey(size int) (string, error) {
 	bytes := make([]byte, size)
 	if _, err := rand.Read(bytes); err != nil {
-		panic(err.Error())
+		return "", err
 	}
 
 	key := fmt.Sprintf("%s", bytes)
-	return key
+	return key, nil
 }
 
-func Decrypt(keySt string, encrypted string) string {
+func Decrypt(keySt string, encrypted string) (string, error) {
 	h := holmes.New(os.Getenv("LOG_MODE"), "utils.Decrypt")
 
 	key := []byte(keySt)
@@ -51,12 +47,12 @@ func Decrypt(keySt string, encrypted string) string {
 
 	block, ncErr := aes.NewCipher(key)
 	if ncErr != nil {
-		h.Error("%v", ncErr)
+		return "", ncErr
 	}
 
 	aesGCM, gcmErr := cipher.NewGCM(block)
 	if gcmErr != nil {
-		h.Error("%v", gcmErr)
+		return "", gcmErr
 	}
 
 	nonceSize := aesGCM.NonceSize()
@@ -65,8 +61,8 @@ func Decrypt(keySt string, encrypted string) string {
 
 	plaintext, openErr := aesGCM.Open(nil, nonce, ciphertext, nil)
 	if openErr != nil {
-		h.Error("%v", openErr)
+		return "", openErr
 	}
 
-	return fmt.Sprintf("%s", plaintext)
+	return fmt.Sprintf("%s", plaintext), nil
 }
