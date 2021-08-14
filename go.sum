@@ -1,5 +1,5 @@
-github.com/osmontero/holmes v1.0.1 h1:RMoGfAnVCSU0aN/6HH8dZKq0TuVzzB7qghc4WeDG9z0=
-github.com/osmontero/holmes v1.0.1/go.mod h1:GltIUXznv3DE1wgdah2i7a4TX/565RGzf14JcKkmU2Q=
+github.com/attreios/holmes v1.0.1 h1:RMoGfAnVCSU0aN/6HH8dZKq0TuVzzB7qghc4WeDG9z0=
+github.com/attreios/holmes v1.0.1/go.mod h1:GltIUXznv3DE1wgdah2i7a4TX/565RGzf14JcKkmU2Q=
 golang.org/x/sys v0.0.0-20210809222454-d867a43fc93e h1:WUoyKPm6nCo1BnNUvPGnFG3T5DUVem42yDJZZ4CNxMA=
 golang.org/x/sys v0.0.0-20210809222454-d867a43fc93e/go.mod h1:oPkhp1MJrh7nUepCBck5+mAzfO9JrbApNNgaTdGDITg=
 gopkg.in/check.v1 v0.0.0-20161208181325-20d25e280405 h1:yhCVgyC4o1eVCa2tZl7eS0r+SDo693bJlVdllGtEeKM=
