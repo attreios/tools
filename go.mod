@@ -1,4 +1,4 @@
-module github.com/attreios/tools
+module github.com/quantfall/tools
 
 go 1.16
 
