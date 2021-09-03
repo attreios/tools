@@ -4,7 +4,7 @@ import (
 	"encoding/csv"
 	"os"
 
-	"github.com/attreios/holmes"
+	"github.com/quantfall/holmes"
 	"gopkg.in/yaml.v2"
 )
 
