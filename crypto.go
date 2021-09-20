@@ -1,4 +1,4 @@
-package tools
+package blind
 
 import (
 	"crypto/aes"
