@@ -6,7 +6,6 @@ import (
 	"crypto/rand"
 	"encoding/hex"
 	"fmt"
-	"os"
 )
 
 func Encrypt(key string, plain string) (string, error) {
@@ -33,15 +32,11 @@ func GenerateCryptoKey(size int) (string, error) {
 	bytes := make([]byte, size)
 	if _, err := rand.Read(bytes); err != nil {
 		return "", err
-	}
-
-	key := fmt.Sprintf("%s", bytes)
-	return key, nil
+	}	
+	return string(bytes), nil
 }
 
 func Decrypt(keySt string, encrypted string) (string, error) {
-	h := holmes.New(os.Getenv("LOG_MODE"), "utils.Decrypt")
-
 	key := []byte(keySt)
 	enc, _ := hex.DecodeString(encrypted)
 
@@ -64,5 +59,5 @@ func Decrypt(keySt string, encrypted string) (string, error) {
 		return "", openErr
 	}
 
-	return fmt.Sprintf("%s", plaintext), nil
+	return string(plaintext), nil
 }
