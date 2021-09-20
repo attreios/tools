@@ -1,3 +1,3 @@
-# Easy cryptography
+# Blind
 * Generate encryption key
 * Encrypt/Decrypt strings
