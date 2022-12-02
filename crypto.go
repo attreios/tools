@@ -5,13 +5,12 @@ import (
 	"crypto/cipher"
 	"crypto/rand"
 	"encoding/hex"
-	"fmt"
 )
 
-func Encrypt(key string, plain string) (string, error) {
+func Encrypt(key []byte, plain string) (string, error) {
 	plainBytes := []byte(plain)
 
-	block, blockErr := aes.NewCipher([]byte(key))
+	block, blockErr := aes.NewCipher(key)
 	if blockErr != nil {
 		return "", blockErr
 	}
@@ -25,19 +24,18 @@ func Encrypt(key string, plain string) (string, error) {
 
 	encrypted := aesGCM.Seal(nonce, nonce, plainBytes, nil)
 
-	return fmt.Sprintf("%x", encrypted), nil
+	return hex.EncodeToString(encrypted), nil
 }
 
-func GenerateCryptoKey(size int) (string, error) {
+func GenerateCryptoKey(size int) ([]byte, error) {
 	bytes := make([]byte, size)
 	if _, err := rand.Read(bytes); err != nil {
-		return "", err
-	}	
-	return string(bytes), nil
+		return []byte{}, err
+	}
+	return bytes, nil
 }
 
-func Decrypt(keySt string, encrypted string) (string, error) {
-	key := []byte(keySt)
+func Decrypt(key []byte, encrypted string) (string, error) {
 	enc, _ := hex.DecodeString(encrypted)
 
 	block, ncErr := aes.NewCipher(key)
@@ -54,10 +52,10 @@ func Decrypt(keySt string, encrypted string) (string, error) {
 
 	nonce, ciphertext := enc[:nonceSize], enc[nonceSize:]
 
-	plaintext, openErr := aesGCM.Open(nil, nonce, ciphertext, nil)
+	decrypted, openErr := aesGCM.Open(nil, nonce, ciphertext, nil)
 	if openErr != nil {
 		return "", openErr
 	}
 
-	return string(plaintext), nil
+	return string(decrypted), nil
 }
