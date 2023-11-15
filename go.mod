@@ -1,3 +1,3 @@
-module github.com/quantfall/blind
+module github.com/threatwinds/blind
 
 go 1.21
